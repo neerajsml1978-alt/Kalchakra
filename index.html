@@ -1,11 +1,37 @@
-<div class="calendar-embed-container" style="
-    width: 100%; 
-    max-width: 550px; 
-    height: 600px; 
-    border: 2px solid #ffb300; 
-    border-radius: 15px; 
-    overflow: hidden; 
-    margin: 0 auto;">
-    
-    <iframe src="https://kalchakra.netlify.app" width="100%" height="100%" frameborder="0"></iframe>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalchakra Fullscreen Calendar</title>
+    <style>
+        /* यह कोड पूरे ब्राउज़र को कवर करने के लिए है */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* ताकि स्क्रॉल बार न आए */
+            background-color: #fff;
+        }
+        
+        /* कैलेंडर को पूरी स्क्रीन पर फैलाने के लिए */
+        .calendar-fullscreen {
+            width: 100vw;
+            height: 100vh;
+            border: none;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <iframe 
+        src="ht""tps://""kalchakra.netlify.app"" 
+        class="calendar-fullscreen" 
+        allowfullscreen="true">
+    </iframe>
+
+</body>
+</html>
+
