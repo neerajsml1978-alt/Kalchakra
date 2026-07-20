@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>आज का राशिफल</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- लाइब्रेरी -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="data.js"></script> 
+    <!-- डाउनलोड फंक्शन फाइल -->
+    <script src="download-button.js"></script>
+</head>
+<body>
+    <div id="capture-area">
+        <h1 style="text-align: center; color: #8b0000; margin: 20px 0;">आज का राशिफल - <span id="current-date"></span></h1>
+        <div id="rashifal-container" class="grid-container"></div>
+    </div>
+    
+    <script src="script.js"></script>
+    <script>
+        window.addEventListener('load', function() {
+            addDownloadButton('capture-area', 'mera-rashifal.png');
+        });
+    </script>
+</body>
+</html>
