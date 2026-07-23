@@ -1,0 +1,64 @@
+<style>
+  /* यह कंटेनर टीकर बॉक्स को पूरी चौड़ाई में मैनेज करता है */
+  .container {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0; /* यहाँ 0 रखें ताकि एलाइनमेंट सही रहे */
+    margin: 0;
+  }
+
+  /* टीकर बॉक्स की सेटिंग */
+  .ticker-box { 
+    flex: 1; 
+    min-width: 0; /* यह बॉक्स को दबने से रोकता है */
+    overflow: hidden; 
+    border: 1px solid #ccc; 
+    border-radius: 12px; 
+    padding: 10px 0; 
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+    white-space: nowrap;
+    background-color: #ffffff;
+  }
+  
+  .ticker-move { 
+    display: inline-block;
+    padding-left: 100%;
+    animation: marquee 10s linear infinite; 
+  }
+  
+  .ticker-item { 
+    font-weight: bold; 
+    font-size: 13px; 
+    color: #c82333; 
+    text-decoration: none; 
+    cursor: pointer; 
+  }
+  
+  @keyframes marquee { 
+    0% { transform: translate(0, 0); } 
+    100% { transform: translate(-100%, 0); } 
+  }
+</style>
+
+<div class="container">
+  <!-- बॉक्स 1: राशिफल -->
+  <div class="ticker-box">
+    <div class="ticker-move">
+      <a href="./rashifal/rashifal.html" class="ticker-item">✦आज का राशिफल✦</a>
+    </div>
+  </div>
+  <!-- बॉक्स 2: उपाय -->
+  <div class="ticker-box">
+    <div class="ticker-move">
+      <a href="./rashifal/upay.html" class="ticker-item">✦आज के अचूक उपाय✦</a>
+    </div>
+  </div>
+  <!-- बॉक्स 3: नवग्रह -->
+  <div class="ticker-box">
+    <div class="ticker-move">
+      <a href="./rashifal/navgrah.html" class="ticker-item">✦नवग्रह मंत्र✦</a>
+    </div>
+  </div>
+</div>
