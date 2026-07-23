@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>नवग्रह जानकारी और बीज मंत्र</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- html2canvas लाइब्रेरी -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- डाउनलोड बटन वाली फाइल -->
+    <script src="download-button.js"></script>
+</head>
+<body>
+
+    <!-- पूरा कंटेंट यहाँ से शुरू होता है जिसे कैप्चर किया जाएगा -->
+    <div id="content-capture">
+       <h1 style="text-align: center; color: #8b0000;">नवग्रह: विवरण एवं बीज मंत्र</h1>
+       <div class="grid-container">
+            <script>
+                const planets = [
+                    { name: "सूर्य", day: "रविवार", mantra: "ॐ ह्रां ह्रीं ह्रौं सः सूर्याय नमः।", कारक: "आत्मा, पिता, यश", रत्न: "माणिक्य", अंक: "1" },
+                    { name: "चंद्र", day: "सोमवार", mantra: "ॐ श्रां श्रीं श्रौं सः चन्द्रमसे नमः।", कारक: "मन, माता, शांति", रत्न: "मोती", अंक: "2" },
+                    { name: "मंगल", day: "मंगलवार", mantra: "ॐ क्रां क्रीं क्रौं सः भौमाय नमः।", कारक: "ऊर्जा, साहस, भूमि", रत्न: "मूंगा", अंक: "9" },
+                    { name: "बुध", day: "बुधवार", mantra: "ॐ ब्रां ब्रीं ब्रौं सः बुधाय नमः।", कारक: "बुद्धि, व्यापार, वाणी", रत्न: "पन्ना", अंक: "5" },
+                    { name: "गुरु", day: "गुरुवार", mantra: "ॐ ग्रां ग्रीं ग्रौं सः गुरवे नमः।", कारक: "ज्ञान, धन, गुरु", रत्न: "पुखराज", अंक: "3" },
+                    { name: "शुक्र", day: "शुक्रवार", mantra: "ॐ द्रां द्रीं द्रौं सः शुक्राय नमः।", कारक: "सुख, कला, प्रेम", रत्न: "हीरा", अंक: "6" },
+                    { name: "शनि", day: "शनिवार", mantra: "ॐ प्रां प्रीं प्रौं सः शनये नमः।", कारक: "न्याय, कर्म, अनुशासन", रत्न: "नीलम", अंक: "8" },
+                    { name: "राहु", day: "शनिवार", mantra: "ॐ भ्रां भ्रीं भ्रौं सः राहवे नमः।", कारक: "अचानक घटना, भ्रम", रत्न: "गोमेद", अंक: "4" },
+                    { name: "केतु", day: "मंगलवार", mantra: "ॐ स्रां स्रीं स्रौं सः केतवे नमः।", कारक: "मोक्ष, आध्यात्म", रत्न: "लहसुनिया", अंक: "7" }
+                ];
+
+                // 9 ग्रहों के कार्ड्स बनाना
+                planets.forEach(p => {
+                    document.write(`
+                        <div class="card">
+                            <div class="card-header"><h3>${p.name}</h3></div>
+                            <ul class="analysis-list">
+                                <li>वार: ${p.day}</li>
+                                <li>कारक: ${p.कारक}</li>
+                                <li>रत्न: ${p.रत्न}</li>
+                                <li>शुभ अंक: ${p.अंक}</li>
+                                <li style="color: #8b0000; margin-top:10px;">मंत्र: ${p.mantra}</li>
+                            </ul>
+                        </div>
+                    `);
+                });
+            </script>
+            
+            <!-- विशेष जानकारी कार्ड -->
+            <div class="card extra-box">
+                <div class="card-header"><h3>विशेष जानकारी</h3></div>
+                <ul class="analysis-list">
+                    <li><strong>नवग्रह शांति</strong> के लिए नियमित साधना करें।</li>
+                    <li>रत्न धारण करने से पहले कुंडली अवश्य दिखाएं।</li>
+                    <li>ॐ नमः शिवाय का जप सभी ग्रहों के लिए शुभ है।</li>
+                    <li>शुद्धता: पूजा करते समय पूर्व दिशा की ओर मुख रखें।</li>
+                </ul>
+            </div>
+        </div>
+    </div> <!-- content-capture यहाँ समाप्त होता है -->
+
+    <!-- बटन को सक्रिय करने वाली स्क्रिप्ट -->
+    <script>
+        // अब यह पूरा content-capture का स्क्रीनशॉट लेगा
+        addDownloadButton('content-capture', 'Navagraha_Details.png');
+    </script>
+
+</body>
+</html>
