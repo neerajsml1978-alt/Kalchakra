@@ -24,8 +24,8 @@ function loadMenu() {
       <a href="makar.html">मकर राशि का भविष्यफल</a>
       <a href="kumbh.html">कुंभ राशि का भविष्यफल</a>
       <a href="meen.html">मीन राशि का भविष्यफल</a>
-      <a href="upay.html">आज के अचूक उपाय</a>
-      <a href="navgrah.html">नवग्रह मंत्र</a>
+      <a href="./rashifal/upay.html">आज के अचूक उपाय</a>
+      <a href="./rashifal/navgrah.html">नवग्रह मंत्र</a>
     </div>
   `;
   document.getElementById('menu-container').innerHTML = menuHTML;
