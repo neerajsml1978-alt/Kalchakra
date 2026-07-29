@@ -1,0 +1,91 @@
+/* 1. बैकग्राउंड सेटिंग */
+body {
+    background-color: #f4f7f6; /* ग्रे बैकग्राउंड */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr); 
+    gap: 20px; /* कार्ड्स के बीच की दूरी */
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* 3. कार्ड का डिज़ाइन */
+.card {
+    border: 2px solid #d4af37;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    min-height: 220px; /* हाइट बढ़ाई गई है */
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* कार्ड्स के अलग-अलग रंग */
+.card:nth-child(6n+1) { background: #ffebee; } 
+.card:nth-child(6n+2) { background: #e3f2fd; } 
+.card:nth-child(6n+3) { background: #e8f5e9; } 
+.card:nth-child(6n+4) { background: #fff3e0; } 
+.card:nth-child(6n+5) { background: #f3e5f5; } 
+.card:nth-child(6n+6) { background: #fffde7; }
+
+/* लेफ्ट कॉर्नर आइकन और हेडिंग */
+.card-header {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #d4af37;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.rashi-icon {
+    font-size: 45px;
+    margin-right: 15px;
+}
+
+.card-header h3 {
+    margin: 0;
+    color: #8b0000;
+    font-size: 35px;
+}
+
+/* बुलेट पॉइंट्स */
+.analysis-list {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin: 0;
+    font-size: 30px;
+    font-weight: 1000;
+    color: #333;
+    line-height: 1.5;
+}
+
+.analysis-list li {
+    margin-bottom: 5px;
+}
+
+@media (max-width: 768px) {
+    .grid-container { grid-template-columns: 1fr; }
+}
+.download-btn {
+    display: block;
+    margin: 40px auto; /* ऊपर और नीचे जगह बनाने के लिए */
+    padding: 15px 40px;
+    background-color: #8b0000;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
