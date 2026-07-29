@@ -7,7 +7,7 @@ function toggleNav() {
   }
 }
 
-// मेनू लोड करने के लिए फंक्शन
+// मेनू लोड करने के लिए फंक्शन (सही फाइल नामों के साथ)
 function loadMenu() {
   const menuHTML = `
     <div id="mySideNav" class="sidenav">
@@ -24,8 +24,8 @@ function loadMenu() {
       <a href="makar.html">मकर राशि का भविष्यफल</a>
       <a href="kumbh.html">कुंभ राशि का भविष्यफल</a>
       <a href="meen.html">मीन राशि का भविष्यफल</a>
-      <a href="./rashifal/upay.html">आज के अचूक उपाय</a>
-      <a href="./rashifal/navgrah.html">नवग्रह मंत्र</a>
+      <a href="upay.html">आज के अचूक उपाय</a>
+      <a href="navgrah.html">नवग्रह मंत्र</a>
     </div>
   `;
   document.getElementById('menu-container').innerHTML = menuHTML;
