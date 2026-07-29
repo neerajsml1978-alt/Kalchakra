@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <!-- मेटा सूचना और कैरेक्टर सेट -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#000000">
+    
+    <!-- टाइटल -->
+    <title>कालचक्र कैलेंडर:ज्योतिषाचार्य नीरज गोयल का सटीक date to day कैलकुलेटर</title>
+
+    <!-- PWA मैनिफेस्ट और आइकॉन -->
+    <link rel="manifest" href="./manifest.json">
+    <link rel="apple-touch-icon" href="./icon-192.png">
+
+    <!-- SEO मेटा टैग्स (जो पहले नहीं थे) -->
+    <meta name="description" content="ज्योतिषाचार्य नीरज गोयल द्वारा रचित कालचक्र कैलेंडर: एक दृश्य-गणितीय एल्गोरिदम जो किसी भी तारीख का वार सेकंडों में सटीक बताता है।">
+    <meta name="keywords" content="कालचक्र, ज्योतिष, date to day calculator, नीरज गोयल, कैलेंडर एल्गोरिदम, सटीक वार गणना, पंचांग">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Neeraj Goel">
+    <link rel="canonical" href="https://neerajsml1978-alt.github.io/Kalachakra-Grid-Algorithm/">
+
+    <!-- सोशल मीडिया शेयरिंग टैग्स (जो पहले से थे) -->
+    <meta property="og:image" content="https://neerajsml1978-alt.github.io/Kalachakra-Grid-Algorithm/preview.jpg">
+    <meta property="og:description" content="ग्रेगोरियन कैलेंडर के लिए एक दृश्य-गणितीय गणना एल्गोरिदम। सेकंडों में वार पता करें।">
+    <meta property="og:title" content="कालचक्र सटीक कैलेंडर: Date to Day कैलकुलेटर">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://neerajsml1978-alt.github.io/Kalachakra-Grid-Algorithm/">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "कालचक्र ग्रिड: डेट टू डे कैलकुलेटर",
+  "url": "https://neerajsml1978-alt.github.io/Kalachakra-Grid-Algorithm/",
+  "description": "नीरज गोयल द्वारा विकसित कालचक्र ग्रिड थ्योरी पर आधारित सटीक गणितीय समय गणना यंत्र।",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "All"
+}
+</script>
+<meta name="google-site-verification" content="hsQPAeKMwhhN-JIJqGDA77Ff6cBZdBFEzHpQ9docuEQ" />
+  
+    <!-- यह नया Sidenav वाला CSS लिंक यहाँ जोड़ दें -->
+    <link rel="stylesheet" href="sidenav.css">
+<style>
+  /* टीकर को ऐप कंटेनर की चौड़ाई और मार्जिन के बराबर सेट करें */
+  #ticker-placeholder {
+      width: 90%;              /* पूरी स्क्रीन का 90% */
+      max-width: 550px;        /* कंटेनर के बराबर */
+      margin: 0 auto 15px auto; /* सेंटर में करें */
+      box-sizing: border-box;
+  }   
+/* फ्लोटिंग मेनू स्टाइल */
+.floating-menu {
+    position: fixed;
+    top: 40px;
+    right: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 9999;
+}
+.floating-menu button {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    font-size: 20px;
+}
+    
+:root {
+ --primary-color: #d84315; /* सनातनी भगवा / गहरा नारंगी */
+ --accent-color: #b71c1c; /* गहरा लाल */
+ --row-bg: #fff3e0;
+ --col-bg: #efebe9;
+ --gold: #ffb300; /* चमकता हुआ सुनहरा */
+ --dark-blue: #1a237e;
+ --whatsapp-green: #25d366; /* WhatsApp रंग */
+ }
+body {
+ font-family: 'Segoe UI', Arial, sans-serif;
+ background-color: #f5f5f5;
+ margin: 0;
+ padding: 10px;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ }
+.app-container {
+ margin-top: 0px;
+ max-width: 550px;
+ width: 100%;
+ background: white;
+ padding: 20px;
+ border-radius: 15px;
+ box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+ text-align: center;
+ box-sizing: border-box;
+ margin-bottom: 15px;
+ border: 2px solid var(--gold);
+ }
+/* नवग्रह चक्र लोगो */
+ .navagraha-logo {
+ width: 80px;
+ height: 80px;
+ margin: 0 auto 15px auto;
+ position: relative;
+ background: radial-gradient(circle, var(--gold) 20%, var(--accent-color) 100%);
+ border-radius: 50%;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ color: white;
+ font-size: 28px;
+ box-shadow: 0 0 15px rgba(255, 179, 0, 0.6);
+ border: 3px solid var(--gold);
+ animation: spin 20s linear infinite;
+ }
+/* सूर्य केंद्र */
+ .navagraha-logo::before {
+ content: "☀️";
+ font-size: 20px;
+ }
+/* आसपास के ग्रह बिंदु */
+ .navagraha-logo::after {
+ content: "";
+ position: absolute;
+ width: 90%;
+ height: 90%;
+ border: 1px dashed rgba(255,255,255,0.5);
+ border-radius: 50%;
+ }
+@keyframes spin {
+ 100% { transform: rotate(360deg); }
+ }
+.input-row { display: flex; gap: 8px; margin-bottom: 15px; }
+ .input-group { flex: 1; text-align: left; }
+ label { display: block; margin-bottom: 4px; font-weight: bold; font-size: 13px; color: #3e2723; }
+ input, select { width: 100%; padding: 10px; border: 2px solid #cfd8dc; border-radius: 8px; font-size: 15px; box-sizing: border-box; }
+ input:focus, select:focus { border-color: var(--primary-color); outline: none; }
+button {
+ width: 100%; padding: 14px; background: linear-gradient(135deg, var(--primary-color), var(--accent-color)); color: white;
+ border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer;
+ box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+ transition: 0.2s;
+ }
+ button:active { transform: scale(0.98); }
+
+/* WhatsApp बटन स्टाइल */
+ .whatsapp-button {
+ display: block;
+ width: 95%;
+ padding: 10px;
+ background-color: var(--whatsapp-green);
+ color: white;
+ text-decoration: none;
+ border-radius: 8px;
+ font-size: 16px;
+ font-weight: bold;
+ text-align: center;
+ margin-top: 15px;
+ box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+ transition: 0.2s;
+ }
+ .whatsapp-button:active { transform: scale(0.98); }
+
+.chart-card {
+ max-width: 550px;
+ width: 100%;
+ background: white;
+ padding: 15px;
+ border-radius: 15px;
+ box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+ margin-bottom: 15px;
+ box-sizing: border-box;
+ display: none;
+ border-top: 4px solid var(--accent-color);
+ }
+
+h3 { margin: 0 0 10px 0; color: #37474f; font-size: 15px; border-bottom: 2px solid var(--primary-color); padding-bottom: 5px; }
+
+.table-wrapper { overflow-x: auto; width: 100%; }
+ table { width: 100%; border-collapse: collapse; font-size: 11px; min-width: 400px; }
+ th, td { border: 1px solid #d7ccc8; padding: 6px 4px; text-align: center; }
+ th { background-color: #ffccbc; color: #3e2723; }
+ .label-cell { background-color: #fff3e0; font-weight: bold; color: var(--accent-color); text-align: left; }
+
+.hl-row { background-color: var(--row-bg) !important; }
+ .hl-col { background-color: var(--col-bg) !important; }
+ .intersect { 
+background-color: var(--gold) !important; 
+color: #3e2723 !important; 
+font-weight: bold !important; 
+font-size: 14px;
+ border: 2px solid var(--accent-color);
+ }
+
+#finalResult {
+ display: none; max-width: 550px; width: 100%; background: #fffde7;
+ padding: 15px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+ font-size: 20px; font-weight: bold; color: var(--accent-color); margin-bottom: 15px; box-sizing: border-box;
+ text-align: center; border: 2px dashed var(--gold);
+ }
+
+/* विवरण एवं संपर्क कार्ड */
+ .creator-description {
+ max-width: 550px;
+ width: 100%;
+ background: linear-gradient(135deg, #ffffff, #fffdf9);
+ border: 2px solid #e0e0e0;
+ border-top: 5px solid var(--gold);
+ padding: 20px;
+ border-radius: 15px;
+ box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+ text-align: left;
+ box-sizing: border-box;
+ margin-top: 10px;
+ }
+ .creator-title { font-size: 18px; font-weight: bold; color: var(--accent-color); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+ .creator-text { font-size: 13.5px; color: #4e342e; line-height: 1.6; text-align: justify; }
+ 
+.contact-info-box {
+ margin-top: 15px;
+ padding-top: 12px;
+ border-top: 1px dashed #d7ccc8;
+ }
+ .contact-item {
+ font-size: 14px;
+ color: #212121;
+ margin: 5px 0;
+ display: flex;
+ align-items: center;
+ gap: 8px;
+ }
+ .contact-label { font-weight: bold; color: var(--primary-color); min-width: 80px; }
+ .contact-value { color: var(--dark-blue); font-weight: 600; text-decoration: none; }
+ </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body oncontextmenu="return false;" onselectstart="return false;" ondragstart="return false;">
+<!-- थ्री डॉट मेनू बटन -->
+<div style="font-size:30px; cursor:pointer; padding:10px; position:absolute; top:0px; left:0px; z-index:1000;" onclick="toggleNav()">&#8942;</div>
+<div id="menu-container"></div>
+    <div id="ticker-placeholder"></div>
+    <div class="floating-menu">
+  <button id="installBtn" onclick="installApp()" style="display: none; background: #e0e0e0;">📥</button>
+    <button onclick="sharePage()" style="background: #ffffff; border: 1px solid #ddd;">🔗</button>
+</div>
+<div class="app-container"> 
+ <div class="navagraha-logo"></div>
+ <h2 style="margin:0 0 5px 0; color:var(--accent-color);">कालचक्र सटीक कैलेंडर </h2>
+ <p style="margin:0 0 15px 0; font-size:12px; color:#5d4037; font-weight: bold;">
+    शोधकर्ता: ज्योतिषाचार्य <span class="my-name"></span> (शामली)
+</p>
+<div class="input-row">
+ <div class="input-group">
+ <label>तारीख (Date)</label>
+ <input type="number" id="day" min="1" max="31">
+ </div>
+ <div class="input-group">
+ <label>महीना (Month)</label>
+ <select id="month">
+ <option value="जनवरी">जनवरी</option>
+ <option value="फरवरी">फरवरी</option>
+ <option value="मार्च">मार्च</option>
+ <option value="अप्रैल">अप्रैल</option>
+ <option value="मई">मई</option>
+ <option value="जून">जून</option>
+ <option value="जुलाई">जुलाई</option>
+ <option value="अगस्त">अगस्त</option>
+ <option value="सितंबर">सितंबर</option>
+ <option value="अक्टूबर">अक्टूबर</option>
+ <option value="नवंबर">नवंबर</option>
+ <option value="दिसंबर">दिसंबर</option>
+ </select>
+ </div>
+ <div class="input-group">
+ <label>वर्ष (Year)</label>
+ <input type="number" id="year">
+ </div>
+</div>
+<button onclick="startMagicTrace()">कालचक्र ग्रिड का लाइव जादू देखें</button>
+</div>
+<div id="finalResult"></div>
+
+<!-- चार्ट १ का कार्ड -->
+<div class="chart-card" id="card1">
+ <h3>चरण १: वर्ष कोड तालिका (Year Code Table)</h3>
+ <div class="table-wrapper">
+ <table id="table1">
+ <thead>
+ <tr>
+ <th>वर्ष समूह</th>
+ <th>1600<br>2000</th>
+ <th>1700<br>2100</th>
+ <th>1800<br>2200</th>
+ <th>1900<br>2300</th>
+ </tr>
+ </thead>
+ <tbody id="table1Body"></tbody>
+ </table>
+ </div>
+</div>
+
+<!-- CHART 2 CARD -->
+<div class="chart-card" id="card2">
+ <h3 id="card2Heading">चरण २: दिन मिलान ग्रिड</h3>
+ <div class="table-wrapper">
+ <table id="table2">
+ <thead>
+ <tr>
+ <th>महीने के समूह \ तारीखें ➔</th>
+ <th>रवि</th><th>सोम</th><th>मंगल</th><th>बुध</th><th>गुरु</th><th>शुक्र</th><th>शनि</th>
+ </tr>
+ </thead>
+ <tbody id="table2Body"></tbody>
+ </table>
+ </div>
+</div>
+
+<!-- विवरण एवं संपर्क सूत्र -->
+<div class="creator-description">
+ <div class="creator-title">✨ ऐप की पृष्ठभूमि एवं इतिहास</div>
+ <div class="creator-text">
+ इस अद्भुत डिजिटल कालचक्र कैलेंडर की मूल आत्मा और इसके पीछे की अचूक <b>ग्रिड थ्योरी (गणितीय चार्ट)</b> के मुख्य सूत्रधार <b>ज्योतिषाचार्य नीरज गोयल जी</b> हैं, जो कि <b>शामली, उत्तर प्रदेश</b> के मूल निवासी हैं। नीरज जी ने ज्योतिष, ग्रहों की चाल और समय चक्र के गहन अध्ययन के बाद आज से लगभग <b>20 वर्ष पूर्व</b> इस बेजोड़ गणितीय तालिका का आविष्कार किया था। यह ऐप किसी साधारण रेडीमेड कोडिंग के बजाय सीधे नीरज गोयल जी के मूल चार्ट के रो (Rows) और कॉलम (Columns) का लाइव मिलान करके शत-प्रतिशत सटीक परिणाम आपके सामने प्रस्तुत करता है।
+ </div>
+ 
+<div class="contact-info-box">
+ <div class="creator-title" style="font-size: 16px;"> परामर्श एवं संपर्क सूत्र:</div>
+ <div class="contact-item">
+ <span class="contact-label">शोधकर्ता:</span>
+ 
+<span style="font-weight: bold; color: #3e2723;">
+    ज्योतिषाचार्य 
+    <span class="my-name"></span> (शामली वाले)
+</span>
+ 
+ </div>
+ <div class="contact-item">
+ <span class="contact-label">मोबाइल नं:</span>
+ <a href="tel:+919758007088" class="contact-value">+91-9758007088</a>
+ </div>
+ <div class="contact-item">
+ <span class="contact-label">ईमेल आईडी:</span>
+ <a href="mailto:neerajsml1978@gmail.com" class="contact-value">neerajsml1978@gmail.com</a>
+     
+ </div>
+ 
+ <!-- यहाँ WhatsApp बटन जोड़ा गया है -->
+ <a href="https://wa.me/919758007088?text=नमस्ते" class="whatsapp-button" target="_blank">
+       <i class="fab fa-whatsapp" style="font-size: 20px;"></i>
+     WhatsApp पर संपर्क करें
+ </a>
+</div>
+</div>
+
+<div style="text-align: center; margin-top: 20px; padding: 10px; background: #fff3e0; border-radius: 8px;">
+    <a href="./Theory.html" style="text-decoration: none; color: #d84315; font-weight: bold; font-size: 16px;">
+        📖 कालचक्र थ्योरी देखें
+    </a>
+     <a href="NakshatraList.html" style="text-decoration: none; color: #d84315; font-weight: bold; font-size: 16px;">
+        ✨ नक्षत्र विवरण (27 लिस्ट)
+     </a>
+</div>
+
+<!-- (JavaScript कोड यहाँ यथावत रहेगा) -->
+<script>
+ const chart1Data = [
+ 
+{ labels: "00", codes: ['s', 'F', 'W', 'M'] },
+
+{ labels: "01, 29, 57, 85", codes: ['M', 's', 't', 'T'] },
+ { labels: "02, 30, 58, 86", codes: ['T', 'S', 'F', 'W'] },
+ { labels: "03, 31, 59, 87", codes: ['W', 'M', 's', 't'] },
+ { labels: "04, 32, 60, 88", codes: ['t', 'T', 'S', 'F'] },
+ { labels: "05, 33, 61, 89", codes: ['s', 't', 'T', 'S'] },
+ { labels: "06, 34, 62, 90", codes: ['S', 'F', 'W', 'M'] },
+ { labels: "07, 35, 63, 91", codes: ['M', 's', 't', 'T'] },
+ { labels: "08, 36, 64, 92", codes: ['T', 'S', 'F', 'W'] },
+ { labels: "09, 37, 65, 93", codes: ['t', 'T', 'S', 'F'] },
+ { labels: "10, 38, 66, 94", codes: ['F', 'W', 'M', 's'] },
+ { labels: "11, 39, 67, 95", codes: ['s', 't', 'T', 'S'] },
+ { labels: "12, 40, 68, 96", codes: ['S', 'F', 'W', 'M'] },
+ { labels: "13, 41, 69, 97", codes: ['T', 'S', 'F', 'W'] },
+ { labels: "14, 42, 70, 98", codes: ['W', 'M', 's', 't'] },
+ { labels: "15, 43, 71, 99", codes: ['t', 'T', 'S', 'F'] },
+ { labels: "16, 44, 72", codes: ['F', 'W', 'M', 's'] },
+ { labels: "17, 45, 73", codes: ['S', 'F', 'W', 'M'] },
+ { labels: "18, 46, 74", codes: ['M', 's', 't', 'T'] },
+ { labels: "19, 47, 75", codes: ['T', 'S', 'F', 'W'] },
+ { labels: "20, 48, 76", codes: ['W', 'M', 's', 't'] },
+ { labels: "21, 49, 77", codes: ['F', 'W', 'M', 's'] },
+ { labels: "22, 50, 78", codes: ['s', 't', 'T', 'S'] },
+ { labels: "23, 51, 79", codes: ['S', 'F', 'W', 'M'] },
+ { labels: "24, 52, 80", codes: ['M', 's', 't', 'T'] },
+ { labels: "25, 53, 81", codes: ['W', 'M', 's', 't'] },
+ { labels: "26, 54, 82", codes: ['t', 'T', 'S', 'F'] },
+ { labels: "27, 55, 83", codes: ['F', 'W', 'M', 's'] },
+ 
+{ labels: "28, 56, 84", codes: ['s', 't', 'T', 'S'] },
+ ];
+
+const weekDays = ["रविवार", "सोमवार", "मंगलवार", "बुधवार", "गुरुवार", "शुक्रवार", "शनिवार"];
+ const monthHindiList = ["जनवरी", "फरवरी", "मार्च", "अप्रैल", "मई", "जून", "जुलाई", "अगस्त", "सितंबर", "अक्टूबर", "नवंबर", "दिसंबर"];
+
+const t1Body = document.getElementById('table1Body');
+ chart1Data.forEach((row, rIdx) => {
+ let tr = document.createElement('tr');
+ tr.id = `t1-row-${rIdx}`;
+ // यहाँ भी एक छोटी गड़बड़ी थी जिसे ठीक कर दिया गया है (row.labels)
+ let labelText = row.labels ? row.labels : "21, 49, 77";
+ tr.innerHTML = `<td class="label-cell">${labelText}</td>` + 
+row.codes.map((c, cIdx) => `<td id="t1-cell-${rIdx}-${cIdx+1}">${c}</td>`).join('');
+ t1Body.appendChild(tr);
+ });
+
+function isLeap(year) {
+ return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+ }
+
+function startMagicTrace() {
+    // 1. पुरानी हाईलाइट हटाएं
+    document.querySelectorAll('td').forEach(td => {
+        if (!td.classList.contains('label-cell')) td.className = '';
+    });
+
+    const day = parseInt(document.getElementById('day').value);
+    const monthStr = document.getElementById('month').value;
+    const year = parseInt(document.getElementById('year').value);
+    const leap = isLeap(year);
+
+    if (isNaN(day) || isNaN(year) || day < 1 || day > 31) {
+        alert("कृपया सही तारीख दर्ज करें!"); return;
+    }
+
+    // मास्टर कोड निकालना (यथावत)
+    document.getElementById('card1').style.display = 'block';
+    const lastTwo = year % 100;
+    const lastTwoStr = lastTwo < 10 ? "0" + lastTwo : lastTwo.toString();
+    let rIdx = chart1Data.findIndex(r => r.labels && r.labels.includes(lastTwoStr));
+    if (rIdx === -1 && (lastTwo === 21 || lastTwo === 49 || lastTwo === 77)) rIdx = 21;
+
+    const century = Math.floor(year / 100) * 100;
+    let cIdx = 1; 
+    if (century % 400 === 100) cIdx = 2;
+    if (century % 400 === 200) cIdx = 3;
+    if (century % 400 === 300) cIdx = 4;
+
+    const targetRow = document.getElementById(`t1-row-${rIdx}`);
+    if(targetRow) {
+        targetRow.querySelectorAll('td').forEach(td => { if(!td.classList.contains('label-cell')) td.classList.add('hl-row'); });
+    }
+    chart1Data.forEach((_, i) => { 
+        let cell = document.getElementById(`t1-cell-${i}-${cIdx}`);
+        if(cell) cell.classList.add('hl-col'); 
+    });
+
+    const intersect1 = document.getElementById(`t1-cell-${rIdx}-${cIdx}`);
+    if(intersect1) intersect1.className = 'intersect';
+    const masterCode = intersect1 ? intersect1.innerText : 'S';
+
+    // 2. ग्रिड आधारित गणितीय गणना (यही सबसे महत्वपूर्ण बदलाव है)
+    const codeOffsets = { 'S': 0, 'M': 1, 'T': 2, 'W': 3, 't': 4, 'F': 5, 's': 6 };
+    const masterOffset = codeOffsets[masterCode] || 0;
+
+    let rowsConfig = !leap ? [
+        { m: "जनवरी, अक्टूबर", baseShift: 0 }, { m: "अप्रैल, जुलाई", baseShift: 6 },
+        { m: "मई", baseShift: 1 }, { m: "अगस्त", baseShift: 2 },
+        { m: "फरवरी, मार्च, नवंबर", baseShift: 3 }, { m: "जून", baseShift: 4 }, 
+        { m: "सितंबर, दिसंबर", baseShift: 5 }
+    ] : [
+        { m: "जनवरी, अप्रैल, जुलाई", baseShift: 0 }, { m: "अक्टूबर", baseShift: 1 },
+        { m: "मई", baseShift: 2 }, { m: "फरवरी, अगस्त", baseShift: 3 },
+        { m: "मार्च, नवंबर", baseShift: 4 }, { m: "जून", baseShift: 5 }, 
+        { m: "सितंबर, दिसंबर", baseShift: 6 }
+    ];
+
+    let targetMRowIdx = rowsConfig.findIndex(r => r.m.includes(monthStr));
+    let rowData = rowsConfig[targetMRowIdx];
+
+    // ✅ गणितीय सूत्र: ग्रिड थ्योरी के अनुसार दिन का इंडेक्स निकालना
+    let targetDayIndex = (day - 1 + masterOffset + rowData.baseShift) % 7;
+    const targetDayName = weekDays[targetDayIndex];
+
+    // 3. UI अपडेट (यथावत)
+    document.getElementById('card2').style.display = 'block';
+    document.getElementById('card2Heading').innerText = leap ? `चरण २: दिन मिलान ग्रिड (लीप वर्ष चार्ट सक्रिय)` : `चरण २: दिन मिलान ग्रिड (सामान्य वर्ष चार्ट सक्रिय)`;
+    
+    const t2Body = document.getElementById('table2Body');
+    t2Body.innerHTML = "";
+
+    rowsConfig.forEach((rc, idx) => {
+        let tr = document.createElement('tr');
+        tr.id = `t2-row-${idx}`;
+        let labelTd = document.createElement('td');
+        labelTd.className = 'label-cell';
+        labelTd.innerHTML = `<span style="color:var(--accent-color);">${rc.m}</span>`;
+        tr.appendChild(labelTd);
+
+        let startingDayOfWeek = (masterOffset + rc.baseShift) % 7;
+        for (let col = 0; col < 7; col++) {
+            let td = document.createElement('td');
+            td.id = `t2-cell-${idx}-${col}`;
+            let datesInCell = [];
+            for (let d = 1; d <= 31; d++) {
+                if ((d - 1 + startingDayOfWeek) % 7 === col) datesInCell.push(d);
+            }
+            td.innerText = datesInCell.join(', ');
+            tr.appendChild(td);
+        }
+        t2Body.appendChild(tr);
+    });
+
+    // हाइलाइटिंग (यथावत)
+    const t2Row = document.getElementById(`t2-row-${targetMRowIdx}`);
+    if(t2Row) t2Row.querySelectorAll('td').forEach(td => { if(!td.classList.contains('label-cell')) td.classList.add('hl-row'); });
+    for(let i = 0; i < rowsConfig.length; i++) {
+        let colCell = document.getElementById(`t2-cell-${i}-${targetDayIndex}`);
+        if(colCell) colCell.classList.add('hl-col');
+    }
+    const finalCell = document.getElementById(`t2-cell-${targetMRowIdx}-${targetDayIndex}`);
+    if(finalCell) finalCell.className = 'intersect';
+
+    const resBox = document.getElementById('finalResult');
+    resBox.innerHTML = ` कालचक्र परिणाम: <b>${day} ${monthStr} ${year} को ${targetDayName} है।</b><br><span style="font-size:12px; color:#555;">(वर्ष कोड = ${masterCode})</span>`;
+    resBox.style.display = 'block';
+}
+
+</script>
+<script>
+ // राइट क्लिक और लॉन्ग प्रेस को डिसेबल करना
+ document.addEventListener('contextmenu', event => event.preventDefault());
+</script>
+
+<script>
+    (function() {
+        var hiddenName = "\u0928\u0940\u0930\u091c\u0020\u0917\u094b\u092f\u0932";
+        
+        var elements = document.getElementsByClassName("my-name");
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].innerHTML = hiddenName;
+        }
+    })();
+</script>
+<script>
+    // यह कोड मेनू और बाकी सभी चीजों के लोड होने के बाद सुरक्षित तरीके से करंट डेट सेट करेगा
+    window.addEventListener('load', function() {
+        setTimeout(function() {
+            const today = new Date();
+            
+            // 1. तारीख सेट करें
+            const dayInput = document.getElementById('day');
+            if (dayInput) {
+                dayInput.value = today.getDate();
+            }
+            
+            // 2. वर्ष सेट करें
+            const yearInput = document.getElementById('year');
+            if (yearInput) {
+                yearInput.value = today.getFullYear();
+            }
+            
+            // 3. महीना सेट करें
+            const monthHindiList = ["जनवरी", "फरवरी", "मार्च", "अप्रैल", "मई", "जून", "जुलाई", "अगस्त", "सितंबर", "अक्टूबर", "नवंबर", "दिसंबर"];
+            const currentMonthName = monthHindiList[today.getMonth()];
+            
+            const monthSelect = document.getElementById('month');
+            if (monthSelect) {
+                for (let i = 0; i < monthSelect.options.length; i++) {
+                    if (monthSelect.options[i].value === currentMonthName) {
+                        monthSelect.selectedIndex = i;
+                        break;
+                    }
+                }
+            }
+        }, 300); // 300 मिलीसेकंड का छोटा सा गैप ताकि मेनू अपनी जगह सेट हो जाए
+    });
+</script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js');
+  }
+</script> 
+<script src="./seo-pwa-tools.js"></script>
+<script>
+function sharePage() {
+    if (navigator.share) {
+        navigator.share({
+            title: document.title,
+            url: window.location.href
+        }).catch(err => console.error('Error sharing:', err));
+    } else {
+        alert("आपका ब्राउज़र शेयरिंग सपोर्ट नहीं करता है।");
+    }
+}
+</script>
+<script> 
+  // यह कोड ticker.html फाइल को लोड कर देगा
+  fetch('ticker.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('ticker-placeholder').innerHTML = data;
+    });
+</script>
+<script src="menu-script.js"></script>
+</body>
+</html>
