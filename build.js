@@ -95,7 +95,10 @@ rashis.forEach(rashi => {
 
     const dateSpan = document.getElementById('current-date');
     if (dateSpan) dateSpan.textContent = formattedDate;
-
+        // यहाँ {{RASHI_ICON}} और {{RASHI_NAME}} को बदला जा रहा है
+    document.body.innerHTML = document.body.innerHTML
+        .replace(/\{\{RASHI_ICON\}\}/g, rashi.icon)
+        .replace(/\{\{RASHI_NAME\}\}/g, rashi.name);
     const container = document.getElementById('rashifal-container');
     if (container) {
         container.innerHTML = cardsHtml;
