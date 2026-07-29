@@ -1,0 +1,12 @@
+{
+  "name": "kalachakra-rashifal",
+  "version": "1.0.0",
+  "description": "Static site generator for rashifal",
+  "main": "build.js",
+  "scripts": {
+    "build": "node build.js"
+  },
+  "dependencies": {
+    "jsdom": "^22.0.0"
+  }
+}
