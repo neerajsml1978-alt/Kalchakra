@@ -1,0 +1,50 @@
+body { font-family: 'Arial', sans-serif; line-height: 1.6; background-color: #fff3e0; color: #333; padding: 20px; }
+.container { max-width: 800px; margin: auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+h1 { color: #e65100; text-align: center; }
+h2 { color: #b71c1c; border-bottom: 2px solid #ffb300; padding-bottom: 5px; }
+.info-box { background: #ffe0b2; padding: 15px; border-radius: 10px; margin-top: 20px; }
+ul { list-style-type: none; padding: 0; }
+li { padding: 8px 0; border-bottom: 1px solid #ffe0b2; }
+strong { color: #bf360c; }
+.img-style { width: 100%; max-width: 400px; display: block; margin: 0 auto 20px auto; border-radius: 10px; }
+.highlight { background: #fff3e0; padding: 15px; border-radius: 8px; border-left: 5px solid #d84315; }
+  /* फीचर लिस्ट के लिए स्टाइल */
+.feature-list {
+    margin-top: 20px;
+    padding-left: 20px;
+}
+
+.feature-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid #ffe0b2;
+    margin-bottom: 5px;
+}
+
+/* अगर आप 'strong' टैग को और बेहतर दिखाना चाहते हैं */
+.feature-list strong {
+    color: #bf360c;
+    display: block; /* इससे शीर्षक ऊपर और विवरण नीचे आ जाएगा */
+    margin-bottom: 5px;
+}
+
+.back-btn { 
+    display: block; 
+    text-align: center; 
+    margin-top: 30px; 
+    text-decoration: none; 
+    color: #d84315; 
+    font-weight: bold; 
+    padding: 10px;
+    background: #ffe0b2;
+    border-radius: 8px;
+}
+.share-btn {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 9999;
+}
