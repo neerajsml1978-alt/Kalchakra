@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>कालचक्र ग्रिड थ्योरी</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 900px; margin: 40px auto; padding: 20px; background-color: #f4f7f6; }
+        .container { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #2980b9; margin-top: 30px; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+        h3 { color: #34495e; margin-top: 20px; }
+        .doi-box { background: #e8f4fd; padding: 15px; border-left: 5px solid #3498db; margin: 20px 0; border-radius: 4px; font-weight: bold; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #f8f9fa; }
+        ul { padding-left: 25px; }
+        code { background: #eee; padding: 2px 5px; border-radius: 3px; font-family: monospace; color: #d63384; }
+        hr { border: 0; height: 1px; background: #eee; margin: 30px 0; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>कालचक्र ग्रिड थ्योरी (Kalchakra Grid Theory)</h1>
+    <p><b>शोधकर्ता:</b> ज्योतिषाचार्य नीरज गोयल</p>
+    <p><i>ग्रेगोरियन कैलेंडर के लिए एक दृश्य-गणितीय गणना एल्गोरिदम</i></p>
+
+<div class="doi-box">
+    DOI: 
+    <a href="https://doi.org/10.5281/zenodo.21078011" target="_blank" style="text-decoration: none; color: #3498db; font-weight: bold;">
+        10.5281/zenodo.21078011
+    </a>
+</div>
+
+    <hr>
+
+    <h2>१. 📖 प्रस्तावना (Introduction)</h2>
+    <p>कालचक्र ग्रिड थ्योरी एक नवीन गणना पद्धति है जो ग्रेगोरियन कैलेंडर की तिथियों को 'वार' (Day of the Week) में परिवर्तित करने के लिए बीजगणितीय सूत्रों (Algebraic Formulas) के स्थान पर <b>'मैट्रिक्स इंटरसेक्शन' (Matrix Intersection)</b> का उपयोग करती है। यह पद्धति विशेष रूप से मानवीय गणना और कुशल सॉफ्टवेयर कार्यान्वयन के लिए डिज़ाइन की गई है।</p>
+
+    <hr>
+
+    <h2>२. 📐 गणितीय ढांचा (Mathematical Architecture)</h2>
+    <p>यह प्रणाली दो प्रमुख स्तंभों पर कार्य करती है:</p>
+
+    <h3>A. वर्ष कोड तालिका (Year Code Allocation)</h3>
+    <ul>
+        <li><b>शताब्दी कोड:</b> (शताब्दी / 400) के शेषफल के आधार पर निर्धारित।</li>
+        <li><b>वर्ष कोड:</b> (वर्ष के अंतिम दो अंक + (वर्ष के अंतिम दो अंक / 4)) का 7 के साथ 'मॉड्यूलो' (Modulo 7) ऑपरेशन।</li>
+    </ul>
+
+    <h3>B. दिन मिलान ग्रिड (Day Matching Grid)</h3>
+    <ul>
+        <li>यह एक 2D ग्रिड है।</li>
+        <li><b>Rows (पंक्तियाँ):</b> महीने के 12 कोड (जनवरी से दिसंबर)।</li>
+        <li><b>Columns (स्तंभ):</b> सप्ताह के 7 दिन (रविवार से शनिवार)।</li>
+        <li><b>कार्यप्रणाली:</b> वर्ष कोड और महीने के कोड का योग सीधे ग्रिड के उस सेल पर 'इंटरसेक्ट' (प्रतिच्छेद) करता है, जो उस विशिष्ट तिथि का 'वार' प्रदर्शित करता है।</li>
+    </ul>
+
+    <hr>
+
+    <h2>३. 📊 तुलनात्मक विश्लेषण (Comparative Analysis)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>आधार</th>
+                <th>जेलर एल्गोरिदम</th>
+                <th>कालचक्र ग्रिड थ्योरी</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>प्रक्रिया</td>
+                <td>जटिल भाग और शेषफल सूत्र</td>
+                <td>विजुअल ग्रिड मैपिंग</td>
+            </tr>
+            <tr>
+                <td>त्रुटि दर</td>
+                <td>मानवीय भूल की उच्च संभावना</td>
+                <td>शून्य (दृश्य सत्यापन)</td>
+            </tr>
+            <tr>
+                <td>गति</td>
+                <td>धीमी (मानवीय स्तर पर)</td>
+                <td>तीव्र (सेकंडों में)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <hr>
+
+    <h2>४. 💻 तकनीकी कार्यक्षमता (Technical Implementation)</h2>
+    <p>यह एल्गोरिदम <b>'Lookup Table Optimization'</b> तकनीक का उपयोग करता है। यह CPU को भारी गणना करने के बजाय पहले से मौजूद 'मेमोरी मैप' (Grid) से डेटा उठाने का निर्देश देता है, जिससे प्रोसेस टाइम नगण्य हो जाता है। यह पद्धति <b>ISO 8601</b> (अंतरराष्ट्रीय कैलेंडर मानक) के साथ पूर्णतः संगत है।</p>
+
+    <hr>
+
+    <h2>५. 🚀 भविष्य की संभावनाएँ (Future Scope)</h2>
+    <ul>
+        <li><b>शैक्षिक उपकरण:</b> गणितीय तर्क विकसित करने के लिए स्कूलों में इसे एक टूल के रूप में प्रयोग किया जा सकता है।</li>
+        <li><b>सॉफ्टवेयर API:</b> किसी भी कैलेंडर आधारित एप्लिकेशन में 'सटीक वार गणना' हेतु एक लाइटवेट लाइब्रेरी के रूप में विकसित किया जा सकता है।</li>
+        <li><b>वैश्विक मानक:</b> अकादमिक प्रमाणीकरण के साथ, यह विश्व की सबसे तेज 'मैनुअल कैलेंडर गणना' पद्धति बनने की क्षमता रखती है।</li>
+    </ul>
+</div>
+    <div class="footer">
+        <p>&copy; 2026 शोधकर्ता: ज्योतिषाचार्य नीरज गोयल, शामली।</p>
+    </div>
+<div style="margin-bottom: 20px;">
+    <a href="index.html" style="text-decoration: none; color: #1a237e; font-weight: bold;">
+        ⬅ मुख्य कैलेंडर पर वापस जाएं
+    </a>
+</div>
+</body>
+</html>

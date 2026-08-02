@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>नक्षत्र सूची | कालचक्र</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #fdfaf6; padding: 20px; }
+        .container { max-width: 500px; margin: auto; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h2 { color: #d84315; text-align: center; border-bottom: 2px solid #ffb300; padding-bottom: 10px; }
+        .list { display: flex; flex-direction: column; gap: 8px; margin-top: 20px; }
+        a { text-decoration: none; padding: 12px; background: #fff3e0; color: #3e2723; border-radius: 8px; font-weight: bold; border-left: 5px solid #d84315; }
+        a:hover { background: #ffe0b2; }
+        .back-btn { 
+    display: block; 
+    text-align: center; 
+    margin-top: 30px; 
+    text-decoration: none; 
+    color: #d84315; 
+    font-weight: bold; 
+    padding: 10px;
+    background: #ffe0b2;
+    border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>27 नक्षत्रों की सूची</h2>
+        <div class="list">
+            <a href="nakshatras/ashwini.html">१. अश्विनी</a>
+            <a href="nakshatras/bharani.html">२. भरणी</a>
+            <a href="nakshatras/krittika.html">३. कृतिका</a>
+            <a href="nakshatras/rohini.html">४. रोहिणी</a>
+            <a href="nakshatras/mrigashira.html">५. मृगशिरा</a>
+            <a href="nakshatras/ardra.html">६. आर्द्रा</a>
+            <a href="nakshatras/punarvasu.html">७. पुनर्वसु</a>
+            <a href="nakshatras/pushya.html">८. पुष्य</a>
+            <a href="nakshatras/ashlesha.html">९. आश्लेषा</a>
+            <a href="nakshatras/magha.html">१०. मघा</a>
+            <a href="nakshatras/purva_phalguni.html">११. पूर्वा फाल्गुनी</a>
+            <a href="nakshatras/uttara_phalguni.html">१२. उत्तरा फाल्गुनी</a>
+            <a href="nakshatras/hasta.html">१३. हस्त</a>
+            <a href="nakshatras/chitra.html">१४. चित्रा</a>
+            <a href="nakshatras/swati.html">१५. स्वाति</a>
+            <a href="nakshatras/vishakha.html">१६. विशाखा</a>
+            <a href="nakshatras/anuradha.html">१७. अनुराधा</a>
+            <a href="nakshatras/jyeshtha.html">१८. ज्येष्ठा</a>
+            <a href="nakshatras/mula.html">१९. मूल</a>
+            <a href="nakshatras/purva_ashadha.html">२०. पूर्वाषाढ़ा</a>
+            <a href="nakshatras/uttara_ashadha.html">२१. उत्तराषाढ़ा</a>
+            <a href="nakshatras/shravana.html">२२. श्रवण</a>
+            <a href="nakshatras/dhanishtha.html">२३. धनिष्ठा</a>
+            <a href="nakshatras/shatabhisha.html">२४. शतभिषा</a>
+            <a href="nakshatras/purva_bhadrapada.html">२५. पूर्वा भाद्रपद</a>
+            <a href="nakshatras/uttara_bhadrapada.html">२६. उत्तरा भाद्रपद</a>
+            <a href="nakshatras/revati.html">२७. रेवती</a>
+            
+            <a href="./index.html" class="back-btn">⬅ मुख्य पृष्ठ पर वापस जाएँ</a>
+        </div>
+    </div>
+<script>
+    // यह स्क्रिप्ट सुनिश्चित करेगी कि 'बैक' बटन दबाने पर पेज रिफ्रेश हो जाए
+    window.onpageshow = function(event) {
+        if (event.persisted) {
+            window.location.reload();
+        }
+    };
+</script>
+</body>
+</html>

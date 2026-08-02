@@ -8,6 +8,7 @@
   left: 0;
   background-color: #ffffff;
   overflow-x: hidden;
+  overflow-y: auto;  /* मोबाइल में स्क्रॉल करने के लिए */
   transition: 0.5s;
   padding-top: 60px;
   box-shadow: 2px 0 10px rgba(0,0,0,0.3);
@@ -34,7 +35,21 @@
   transition: 0.3s;
 }
 
-/* होवर इफ़ेक्ट (चाहें तो जोड़ सकते हैं) */
+/* होवर इफ़ेक्ट */
 .sidenav a:hover {
   background-color: #f1f1f1;
+}
+
+/* ड्रॉपडाउन कंटेनर (शुरुआत में छुपा रहेगा) */
+.dropdown-container {
+  display: none;
+  background-color: #f9f9f9;
+  padding-left: 10px;
+}
+
+/* ड्रॉपडाउन के अंदर वाले लिंक्स का साइज़ थोड़ा छोटा और सुंदर रखने के लिए */
+.dropdown-container a {
+  font-size: 18px;
+  padding: 12px 20px;
+  color: #5d4037;
 }

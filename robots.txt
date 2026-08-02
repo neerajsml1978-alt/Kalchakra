@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://neerajsml1978-alt.github.io/Kalachakra-Grid-Algorithm/sitemap.xml
