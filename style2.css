@@ -73,6 +73,55 @@ body {
 .analysis-list li {
     margin-bottom: 5px;
 }
+/* --- कैप्चर एरिया फुटर डिज़ाइन --- */
+.image-footer {
+    margin-top: 30px;
+    padding: 15px;
+    background-color: #8b0000;
+    color: #ffffff;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    word-break: break-word; /* टेक्स्ट को बॉक्स के बाहर जाने से रोकने के लिए */
+}
+
+.image-footer p {
+    margin: 5px 0;
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+/* फ्लेक्सबॉक्स जो डेस्कटॉप पर एक लाइन में रखेगा */
+.footer-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; 
+    gap: 15px; 
+}
+
+/* फोन इमोजी और नंबर को एक साथ रखने के लिए */
+.phone-box {
+    white-space: nowrap;
+    display: inline-block;
+}
+
+.astrologer-info {
+    white-space: normal; /* मोबाइल पर लंबी लाइन को एडजस्ट करने के लिए */
+}
+
+/* 👇 मोबाइल स्क्रीन (छोटी स्क्रीन) के लिए ऑटोमैटिक फॉन्ट साइज छोटा करना */
+@media (max-width: 768px) {
+    .image-footer p {
+        font-size: 18px; /* मोबाइल पर सामान्य हेडिंग का साइज छोटा किया गया */
+    }
+    
+    .astrologer-info, .phone-box {
+        font-size: 16px; /* मोबाइल स्क्रीन पर नाम और फोन नंबर का फॉन्ट साइज ताकि यह बॉक्स के अंदर फिट रहे */
+    }
+}
+
 
 @media (max-width: 768px) {
     .grid-container { grid-template-columns: 1fr; }
