@@ -631,7 +631,7 @@ function playVideo(videoFile) {
 
 function closeVideo() {
     var container = document.getElementById("video-container");
-    container.innerHTML = '<p>कृपया सूची से मंत्र चुनें...</p>';
+    container.innerHTML = "";
     var selectBox = document.getElementById("mantra-select");
     if (selectBox) {
         selectBox.selectedIndex = 0;
