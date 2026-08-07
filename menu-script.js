@@ -47,6 +47,7 @@ function loadMenu() {
       <a href="./rashifal/gurupurnima.html">गुरु पूर्णिमा 2026</a>
       <a href="savan.html">श्रावण मास 2026</a>
       <a href="shukra_gochar.html">शुक्र ग्रह का गोचर</a>
+      <a href="https://www.facebook.com/share/v/1DL3hx1sxU/" target="_blank" rel="noopener noreferrer">नौ ग्रहों के मंत्र</a>
     </div>
   `;
   document.getElementById('menu-container').innerHTML = menuHTML;
