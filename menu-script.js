@@ -44,11 +44,13 @@ function loadMenu() {
       <a href="./rashifal/upay.html">आज के अचूक उपाय</a>
       <a href="./rashifal/navgrah.html">नवग्रह मंत्र</a>
       
-      <!-- ✅ यह नया कोड मेनू में बिल्कुल बाकी लिंक्स की तरह दिखेगा और गैप भी खत्म हो जाएगा -->
-      <div style="padding: 0px; margin: 0px;">
-      <a href="javascript:void(0);" onclick="playVideo('navgrah-mantra.mp4')" style="display: block; padding: 12px 15px; color: #000; text-decoration: none; font-size: 16px; border-bottom: 1px solid #eee;">नौ ग्रहों के मंत्र
-      </a>
+            <div style="padding: 8px 15px;">
+        <select id="mantra-select" onchange="playVideo(this.value)" style="width: 100%; padding: 8px; border-radius: 5px; background: #fff; color: #000; border: 1px solid #ccc;">
+            <!-- यहाँ से "-- मंत्र चुनें --" हटा दिया गया है और सीधा मंत्र दिया गया है -->
+            <option value="navgrah-mantra.mp4">नौ ग्रहों के मंत्र</option>
+        </select>
       </div>
+      
       
       <a href="./rashifal/panchang.html">आज का पंचांग</a>
       <a href="./rashifal/gurupurnima.html">गुरु पूर्णिमा 2026</a>
