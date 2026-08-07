@@ -611,14 +611,17 @@ function sharePage() {
 </script>
 <script src="menu-script.js"></script>
 <script>
-function playVideo(videoUrl) {
+function playVideo(videoFile) {
     var container = document.getElementById("video-container");
-    if (videoUrl) {
-        // वीडियो के साथ ऊपर एक क्लोज (×) बटन जोड़ रहे हैं
+    if (videoFile) {
+        // यहाँ डायरेक्ट MP4 वीडियो प्ले करने का कोड है
         container.innerHTML = `
             <div style="position: relative; display: inline-block; background: #000; padding: 5px; border-radius: 8px;">
-                <button onclick="closeVideo()" style="position: absolute; top: -10px; right: -10px; background: red; color: white; border: none; border-radius: 50%; width: 30px; height: 30px; font-size: 16px; cursor: pointer; z-index: 10;">&times;</button>
-                <iframe src="${videoUrl}" width="267" height="476" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                <button onclick="closeVideo()" style="position: absolute; top: -5px; right: -5px; background: red; color: white; border: none; border-radius: 50%; width: 25px; height: 25px; font-size: 14px; cursor: pointer; z-index: 10;">&times;</button>
+                <video width="267" height="476" controls autoplay style="border-radius: 6px; display: block;">
+                    <source src="${videoFile}" type="video/mp4">
+                    आपका ब्राउज़र वीडियो टैग को सपोर्ट नहीं करता है।
+                </video>
             </div>
         `;
     } else {
@@ -626,18 +629,14 @@ function playVideo(videoUrl) {
     }
 }
 
-// वीडियो बंद करने का फंक्शन
 function closeVideo() {
     var container = document.getElementById("video-container");
     container.innerHTML = '<p>कृपया सूची से मंत्र चुनें...</p>';
-    
-    // साथ ही सेलेक्ट बॉक्स को भी वापस खाली (Default) पर सेट कर देते हैं
     var selectBox = document.getElementById("mantra-select");
     if (selectBox) {
         selectBox.selectedIndex = 0;
     }
 }
-</script>
-    
+</script>    
 </body>
 </html>
