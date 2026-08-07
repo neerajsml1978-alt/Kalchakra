@@ -39,10 +39,19 @@ function loadMenu() {
         <a href="./rashifal/makar.html">मकर राशि</a>
         <a href="./rashifal/kumbh.html">कुंभ राशि</a>
         <a href="./rashifal/meen.html">मीन राशि</a>
-      </div>
+        </div>
 
       <a href="./rashifal/upay.html">आज के अचूक उपाय</a>
       <a href="./rashifal/navgrah.html">नवग्रह मंत्र</a>
+         <!-- ✅ यहाँ पर हमने आपका वीडियो वाला सेलेक्ट बॉक्स जोड़ दिया है -->
+      <div style="padding: 10px 15px;">
+        <label style="color: #fff; font-size: 13px; margin-bottom: 5px; display: block;">मंत्र वीडियो चुनें:</label>
+        <select id="mantra-select" onchange="playVideo(this.value)" style="width: 100%; padding: 8px; border-radius: 5px; background: #fff; color: #000;">
+            <option value="">-- मंत्र चुनें --</option>
+            <option value="https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Fshare%2Fv%2F1DL3hx1sxU%2F&show_text=false&width=267">नौ ग्रहों के मंत्र</option>
+        </select>
+      </div>
+      
       <a href="./rashifal/panchang.html">आज का पंचांग</a>
       <a href="./rashifal/gurupurnima.html">गुरु पूर्णिमा 2026</a>
       <a href="savan.html">श्रावण मास 2026</a>
