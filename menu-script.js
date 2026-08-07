@@ -45,9 +45,8 @@ function loadMenu() {
       <a href="./rashifal/navgrah.html">नवग्रह मंत्र</a>
       
       <div style="padding: 10px 15px;">
-      <label style="color: #fff; font-size: 13px; margin-bottom: 5px; display: block;">मंत्र वीडियो चुनें:</label>
+      <label style="color: #fff; font-size: 13px; margin-bottom: 0px; display: block;">मंत्र वीडियो चुनें:</label>
       <select id="mantra-select" onchange="playVideo(this.value)" style="width: 100%; padding: 8px; border-radius: 5px; background: #fff; color: #000;">
-      <option value="">-- मंत्र चुनें --</option>
       <!-- यहाँ अपनी वीडियो फाइल का नाम या लिंक दें -->
       <option value="navgrah-mantra.mp4">नौ ग्रहों के मंत्र</option>
       </select>
