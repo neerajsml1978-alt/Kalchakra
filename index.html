@@ -611,12 +611,12 @@ function sharePage() {
 </script>
 <script src="menu-script.js"></script>
 <script>
-// 1. जैसे ही वेबसाइट खुलेगी, यह फंक्शन अपने आप चल जाएगा
-window.onload = function() {
-    // यहाँ अपनी उस वीडियो का पाथ दें जिसे आप होमपेज पर दिखाना चाहते हैं
-    playVideo('navgrah-mantra.mp4'); 
-};
-    
+// 1. पेज खुलते ही वीडियो लोड करने के लिए (बिना मेनू को रोके)
+window.addEventListener('DOMContentLoaded', (event) => {
+    playVideo('navgrah-mantra.mp4');
+});
+
+// 2. वीडियो प्ले करने वाला फंक्शन
     function playVideo(videoFile) {
     var container = document.getElementById("video-container");
     if (videoFile) {
