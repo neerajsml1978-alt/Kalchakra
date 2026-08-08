@@ -50,6 +50,7 @@ function loadMenu() {
             <!-- यह डिफ़ॉल्ट विकल्प छिपा हुआ है ताकि पहली बार क्लिक करने पर ऑन-चेंज काम करे -->
             <option value="" disabled selected hidden>मंत्र चुनें</option>
             <option value="navgrah-mantra.mp4">नौ ग्रहों के मंत्र</option>
+       <option value="https://www.facebook.com/share/v/1DL3hx1sxU/">नौ ग्रहों के मंत्र</option>
         </select>
       </div>
       
