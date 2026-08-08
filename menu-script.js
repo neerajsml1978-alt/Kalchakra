@@ -44,13 +44,12 @@ function loadMenu() {
       <a href="./rashifal/upay.html">आज के अचूक उपाय</a>
       <a href="./rashifal/navgrah.html">नवग्रह मंत्र</a>
      
-      <a href="navgrah-mantra.mp4"> नौ ग्रहों के मंत्र</a>
             <div style="padding: 8px 15px;">
         <select id="mantra-select" onchange="playVideo(this.value)" style="width: 100%; padding: 8px; border-radius: 5px; background: #fff; color: #000; border: 1px solid #ccc;">
             <!-- यह डिफ़ॉल्ट विकल्प छिपा हुआ है ताकि पहली बार क्लिक करने पर ऑन-चेंज काम करे -->
             <option value="" disabled selected hidden>मंत्र चुनें</option>
             <option value="navgrah-mantra.mp4">नौ ग्रहों के मंत्र</option>
-       <option value="https://www.facebook.com/share/v/1DL3hx1sxU/">नौ ग्रहों के मंत्र</option>
+      
         </select>
       </div>
       
@@ -58,8 +57,7 @@ function loadMenu() {
       <a href="./rashifal/gurupurnima.html">गुरु पूर्णिमा 2026</a>
       <a href="savan.html">श्रावण मास 2026</a>
       <a href="shukra_gochar.html">शुक्र ग्रह का गोचर</a>
-      <a href="https://www.facebook.com/share/v/1DL3hx1sxU/" target="_blank" rel="noopener noreferrer">नौ ग्रहों के मंत्र</a>
-    </div>
+      </div>
   `;
   document.getElementById('menu-container').innerHTML = menuHTML;
 }
