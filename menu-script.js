@@ -43,7 +43,8 @@ function loadMenu() {
 
       <a href="./rashifal/upay.html">आज के अचूक उपाय</a>
       <a href="./rashifal/navgrah.html">नवग्रह मंत्र</a>
-      
+     
+      <a href="navgrah-mantra.mp4"> नौ ग्रहों के मंत्र</a>
             <div style="padding: 8px 15px;">
         <select id="mantra-select" onchange="playVideo(this.value)" style="width: 100%; padding: 8px; border-radius: 5px; background: #fff; color: #000; border: 1px solid #ccc;">
             <!-- यह डिफ़ॉल्ट विकल्प छिपा हुआ है ताकि पहली बार क्लिक करने पर ऑन-चेंज काम करे -->
