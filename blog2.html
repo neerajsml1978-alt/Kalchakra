@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ब्लॉग और राशिफल - यूनिवर्सल सर्च पोर्टल</title>
+    <!-- html2canvas लाइब्रेरी (इमेज में बदलने के लिए) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background-attachment: fixed;
+            margin: 0;
+            padding: 15px 10px;
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        h1 {
+            color: #b30000;
+            font-size: 22px;
+            margin: 5px 0 15px 0;
+            display: inline-block;
+            white-space: nowrap;
+            text-shadow: 1px 1px 1px rgba(255,255,255,0.8);
+        }
+
+        /* यूनिवर्सल सर्च बॉक्स कंटेनर */
+        .search-box-container {
+            position: relative;
+            width: 100%;
+            max-width: 350px;
+            margin: 0 auto 15px auto;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 15px;
+            font-size: 15px;
+            border: 2px solid #6a11cb;
+            border-radius: 25px;
+            outline: none;
+            background: #ffffff;
+            box-sizing: border-box;
+            box-shadow: 0 3px 8px rgba(106, 17, 203, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: #2575fc;
+            box-shadow: 0 0 10px rgba(37, 117, 252, 0.3);
+        }
+
+        /* सर्च के नीचे खुलने वाली पोस्ट की लिस्ट */
+        .suggestions-list {
+            position: absolute;
+            top: 110%;
+            left: 0;
+            right: 0;
+            background: #fff;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            z-index: 10;
+            max-height: 220px;
+            overflow-y: auto;
+            text-align: left;
+            display: none;
+        }
+
+        .suggestion-item {
+            padding: 10px 15px;
+            font-size: 14px;
+            color: #333;
+            cursor: pointer;
+            border-bottom: 1px solid #f1f1f1;
+            transition: all 0.2s ease;
+        }
+
+        .suggestion-item:last-child {
+            border-bottom: none;
+        }
+
+        .suggestion-item:hover {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: #fff;
+            padding-left: 18px;
+        }
+
+        /* बटनों के डिब्बे */
+        .button-container {
+            display: none;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 5px;
+            max-width: 850px;
+            margin: 0 auto 15px auto;
+        }
+
+        .rashmi-btn {
+            background: linear-gradient(135deg, #ffffff, #f0f4f8);
+            color: #2c3e50;
+            border: 1px solid #cbd5e1;
+            padding: 5px 12px;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 15px;
+            cursor: pointer;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            transition: all 0.2s ease;
+        }
+
+        .rashmi-btn:hover {
+            background: linear-gradient(135deg, #ff7e5f, #feb47b);
+            color: #ffffff;
+            border-color: transparent;
+            transform: translateY(-1px);
+        }
+
+        /* बड़ा स्क्रिप्ट और कंटेंट कंटेनर */
+        #script-container {
+            max-width: 900px;
+            width: 95%; 
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            text-align: left;
+            font-size: 15px;
+            color: #333;
+            line-height: 1.7;
+            min-height: 350px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            box-sizing: border-box;
+        }
+
+        .content-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 10px 0;
+            display: block;
+        }
+
+        /* डाउनलोड बटन के लिए स्टाइल */
+        .download-container {
+            max-width: 900px;
+            width: 95%;
+            margin: 15px auto;
+            text-align: center;
+            display: none; /* शुरू में छिपा रहेगा जब तक फाइल न खुले */
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #b30000, #ff4d4d);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(179, 0, 0, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .download-btn:hover {
+            background: linear-gradient(135deg, #8b0000, #b30000);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(179, 0, 0, 0.4);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- हेडिंग -->
+    <h1>✨ ब्लॉग और राशिफल पोर्टल ✨</h1>
+
+    <!-- यूनिवर्सल सर्च बॉक्स -->
+    <div class="search-box-container">
+        <input type="text" id="searchInput" class="search-input" placeholder="🔍 मेनू खोजें या चुनें..." onfocus="showAllSuggestions()" onkeyup="filterSuggestions()">
+        
+        <!-- मुख्य मेनू लिस्ट -->
+        <div id="suggestionsList" class="suggestions-list">
+            <div class="suggestion-item" onclick="selectCategory('rashifal');">⭐ राशिफल (सभी 12 राशियाँ देखें)</div>
+            <div class="suggestion-item" onclick="selectCategory('navagraha');">🪐 नवग्रह विवरण (सभी 9 ग्रह देखें)</div>
+            <div class="suggestion-item" onclick="playDirectVideo('navgrah-mantra.mp4', 'नवग्रह मंत्र');">🎥 नवग्रह मंत्र वीडियो</div>
+            <div class="suggestion-item" onclick="loadExternalFile('mental-health.html', 'मानसिक रोग');">🧠 मानसिक रोग और तनाव मुक्ति के उपाय</div>
+            <div class="suggestion-item" onclick="loadExternalFile('shivratri_jyotish.html', 'महाशिवरात्रि');">🔱 महाशिवरात्रि 2026</div>
+        </div>
+    </div>
+
+    <!-- 1: राशिफल वाले 12 बटन -->
+    <div id="rashifalButtons" class="button-container">
+        <button class="rashmi-btn" onclick="loadExternalFile('mesh.html', 'मेष राशि')">मेष</button>
+        <button class="rashmi-btn" onclick="loadExternalFile('vrishabh.html', 'वृषभ राशि')">वृषभ</button>
+        <button class="rashmi-btn" onclick="loadExternalFile('mithun.html', 'मिथुन राशि')">मिथुन</button>
+        <button class="rashmi-btn" onclick="loadExternalFile('kark.html', 'कर्क राशि')">कर्क</button>
+        <button class="rashmi-btn" onclick="loadExternalFile('sinh.html', 'सिंह राशि')">सिंह</button>
+        <button class="rashmi-btn" onclick="loadExternalFile('kanya.html', 'कन्या राशि')">कन्या</button>
+        <button class="rashmi-btn" onclick="loadExternalFile('tula.html', 'तुला राशि')">तुला</button>
+        <button class="rashmi-btn" onclick="loadExternalFile('vrishchik.html', 'वृश्चिक राशि')">वृश्चिक</button>
+        <button class="rashmi-btn" onclick="loadExternalFile('dhanu.html', 'धनु राशि')">धनु</button>
+        <button class="rashmi-btn" onclick="loadExternalFile('makar.html', 'मकर राशि')">मकर</button>
+        <button class="rashmi-btn" onclick="loadExternalFile('kumbh.html', 'कुंभ राशि')">कुंभ</button>
+        <button class="rashmi-btn" onclick="loadExternalFile('meen.html', 'मीन राशि')">मीन</button>
+    </div>
+
+    <!-- 2: नवग्रह विवरण वाले 9 बटन -->
+    <div id="navagrahaButtons" class="button-container">
+        <button class="rashmi-btn" onclick="loadExternalFile('surya.html', 'सूर्य ग्रह विवरण')">सूर्य</button>
+        <button class="rashmi-btn" onclick="loadExternalFile('chandra.html', 'चंद्र ग्रह विवरण')">चंद्रमा</button>
+        <button class="rashmi-btn" onclick="loadExternalFile('mangal.html', 'मंगल ग्रह विवरण')">मंगल</button>
+        <button class="rashmi-btn" onclick="loadExternalFile('budh.html', 'बुध ग्रह विवरण')">बुध</button>
+        <button class="rashmi-btn" onclick="loadExternalFile('guru.html', 'गुरु ग्रह विवरण')">गुरु</button>
+        <button class="rashmi-btn" onclick="loadExternalFile('shukra.html', 'शुक्र ग्रह विवरण')">शुक्र</button>
+        <button class="rashmi-btn" onclick="loadExternalFile('shani.html', 'शनि ग्रह विवरण')">शनि</button>
+        <button class="rashmi-btn" onclick="loadExternalFile('rahu.html', 'राहु ग्रह विवरण')">राहु</button>
+        <button class="rashmi-btn" onclick="loadExternalFile('ketu.html', 'केतु ग्रह विवरण')">केतु</button>
+    </div>
+
+    <!-- बड़ा कंटेनर जहाँ फाइल खुलेगी -->
+    <div id="script-container">
+        <p style="text-align: center; color: #666; margin-top: 100px;">✨ कृपया ऊपर सर्च बॉक्स पर क्लिक करके "राशिफल", "नवग्रह विवरण" या कोई अन्य विषय चुनें। ✨</p>
+    </div>
+
+    <!-- कंटेनर के ठीक नीचे डाउनलोड बटन एरिया -->
+    <div class="download-container" id="downloadArea">
+        <button class="download-btn" onclick="captureAndDownloadContainer()">📥 इस सामग्री को इमेज के रूप में डाउनलोड करें</button>
+    </div>
+
+    <script>
+        function selectCategory(category) {
+            const rashifalBtns = document.getElementById('rashifalButtons');
+            const navagrahaBtns = document.getElementById('navagrahaButtons');
+            const searchInput = document.getElementById('searchInput');
+
+            rashifalBtns.style.display = 'none';
+            navagrahaBtns.style.display = 'none';
+            document.getElementById('suggestionsList').style.display = 'none';
+
+            if (category === 'rashifal') {
+                rashifalBtns.style.display = 'flex';
+                searchInput.value = 'राशिफल (सभी राशियाँ चुनें)';
+            } else if (category === 'navagraha') {
+                navagrahaBtns.style.display = 'flex';
+                searchInput.value = 'नवग्रह विवरण (ग्रह चुनें)';
+            }
+        }
+
+        function playDirectVideo(videoFile, postName) {
+            const container = document.getElementById('script-container');
+            document.getElementById('searchInput').value = postName;
+            document.getElementById('suggestionsList').style.display = 'none';
+
+            document.getElementById('rashifalButtons').style.display = 'none';
+            document.getElementById('navagrahaButtons').style.display = 'none';
+
+            container.innerHTML = `
+                <h3 style="margin-top:0; color: #6a11cb;">${postName}</h3>
+                <video controls autoplay style="width: 100%; border-radius: 8px; background: #000;">
+                    <source src="${videoFile}" type="video/mp4">
+                    आपका ब्राउज़र वीडियो टैग को सपोर्ट नहीं करता है।
+                </video>
+            `;
+            
+            container.style.background = "rgba(255, 255, 255, 0.95)";
+            container.style.border = "1px solid rgba(255, 255, 255, 0.5)";
+            container.style.boxShadow = "0 8px 25px rgba(0, 0, 0, 0.08)";
+            container.style.padding = "20px";
+
+            // सामग्री लोड होने पर डाउनलोड बटन दिखाएं
+            document.getElementById('downloadArea').style.display = 'block';
+        }
+
+        function loadExternalFile(fileName, postName) {
+            const container = document.getElementById('script-container');
+            const searchInput = document.getElementById('searchInput');
+            
+            searchInput.value = postName; 
+            document.getElementById('suggestionsList').style.display = 'none';
+            container.innerHTML = "<p style='text-align: center; color: #2575fc; font-weight: bold; margin-top: 100px;'>⏳ लोड हो रहा है...</p>";
+
+            fetch(fileName)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("फाइल नहीं मिली!");
+                    }
+                    return response.text();
+                })
+                .then(htmlContent => {
+                    container.innerHTML = htmlContent;
+
+                    const hasDiv = container.querySelector('div');
+
+                    if (hasDiv) {
+                        container.style.background = "transparent";
+                        container.style.border = "none";
+                        container.style.boxShadow = "none";
+                        container.style.padding = "0";
+                    } else {
+                        container.style.background = "rgba(255, 255, 255, 0.95)";
+                        container.style.border = "1px solid rgba(255, 255, 255, 0.5)";
+                        container.style.boxShadow = "0 8px 25px rgba(0, 0, 0, 0.08)";
+                        container.style.padding = "20px";
+                    }
+
+                    // फाइल लोड होने पर डाउनलोड बटन दिखाएं
+                    document.getElementById('downloadArea').style.display = 'block';
+                })
+                .catch(error => {
+                    container.innerHTML = "<p style='color: #e74c3c; text-align: center; font-weight: bold; margin-top: 100px;'>त्रुटि: यह फाइल (" + fileName + ") अभी मौजूद नहीं है। कृपया इसे फोल्डर में बनाएं।</p>";
+                    container.style.background = "rgba(255, 255, 255, 0.95)";
+                    container.style.border = "1px solid rgba(255, 255, 255, 0.5)";
+                    container.style.boxShadow = "0 8px 25px rgba(0, 0, 0, 0.08)";
+                    container.style.padding = "20px";
+
+                    // त्रुटि होने पर डाउनलोड बटन छिपा दें
+                    document.getElementById('downloadArea').style.display = 'none';
+                });
+        }
+
+        // कंटेनर को इमेज के रूप में कैप्चर करके डाउनलोड करने का फंक्शन
+        function captureAndDownloadContainer() {
+            const container = document.getElementById('script-container');
+            
+            // html2canvas का उपयोग करके कंटेनर को इमेज में बदलना
+            html2canvas(container, { scale: 2, useCORS: true }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'portal-content.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+        }
+
+        function showAllSuggestions() {
+            let list = document.getElementById('suggestionsList');
+            let items = list.getElementsByClassName('suggestion-item');
+            for (let i = 0; i < items.length; i++) {
+                items[i].style.display = "";
+            }
+            list.style.display = 'block';
+        }
+
+        function filterSuggestions() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let list = document.getElementById('suggestionsList');
+            let items = list.getElementsByClassName('suggestion-item');
+            
+            list.style.display = 'block';
+            let hasMatch = false;
+
+            for (let i = 0; i < items.length; i++) {
+                let text = items[i].textContent.toLowerCase();
+                if (text.includes(input)) {
+                    items[i].style.display = "";
+                    hasMatch = true;
+                } else {
+                    items[i].style.display = "none";
+                }
+            }
+
+            if (!hasMatch) {
+                list.style.display = 'none';
+            }
+        }
+
+        document.addEventListener('click', function(event) {
+            let searchContainer = document.querySelector('.search-box-container');
+            if (!searchContainer.contains(event.target)) {
+                document.getElementById('suggestionsList').style.display = 'none';
+            }
+        });
+    </script>
+
+</body>
+</html>
