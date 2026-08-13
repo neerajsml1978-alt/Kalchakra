@@ -640,62 +640,68 @@ function closeVideo() {
 }
 </script>    
 <script>
-    // तारीख चुनने पर यह फंक्शन सीधे API को कॉल कर देगा (चाहे कोई भी तारीख हो)
+    // तारीख चुनने पर यह फंक्शन सीधे API को कॉल करेगा
     function redirectToPanchang(selectedDate) {
         if (!selectedDate) return;
-
-        // अब हम चेक नहीं करेंगे कि तारीख आज की है या नहीं, 
-        // बल्कि हर तारीख के लिए सीधा API फंक्शन चला देंगे।
         fetchPanchangByDate(selectedDate);
     }
 
-    // यह फंक्शन किसी भी चुनी हुई तारीख के लिए API से डेटा लाएगा
-        function fetchPanchangByDate(selectedDate) {
-        const selectedDateStr = selectedDate; // जैसे: '2026-08-13'
+    // पंचांग डेटा फेच करने का संशोधित और सुरक्षित फंक्शन
+    function fetchPanchangByDate(selectedDate) {
         const container = document.getElementById('script-container') || document.body;
+        if (!selectedDate) return;
 
-        if (!selectedDateStr) return;
+        container.innerHTML = `<p style='text-align: center; color: #2575fc; font-weight: bold; margin-top: 20px;'>⏳ API से ${selectedDate} का पंचांग लोड हो रहा है...</p>`;
 
-        container.innerHTML = `<p style='text-align: center; color: #2575fc; font-weight: bold; margin-top: 100px;'>⏳ API से ${selectedDateStr} का पंचांग लोड हो रहा है...</p>`;
-
-        // यहाँ अपनी Prokerala की Client ID और Client Secret डालें
         const clientId = '6a813a7c-c5e4-465f-a533-c95daee4dfb6';
         const clientSecret = 'oUoyvCLzB45mzIuNZTbEw8aMHn16MCpHUsRsp75O';
         
-        // प्रोकेराला पंचांग का सही API एंडपॉइंट (लोकेशन कोऑर्डिनेट्स के साथ, जैसे नई दिल्ली)
-        const apiUrl = `https://api.prokerala.com/v2/astrology/panchang?client_id=${clientId}&client_secret=${clientSecret}&ayanamsa=1&coordinates=28.6139,77.2090&datetime=${selectedDateStr}T00:00:00Z&la=hi`;
+        // Prokerala API का एंडपॉइंट
+        const apiUrl = `https://api.prokerala.com/v2/astrology/panchang?client_id=${clientId}&client_secret=${clientSecret}&ayanamsa=1&coordinates=28.6139,77.2090&datetime=${selectedDate}T00:00:00Z&la=hi`;
 
+        // CORS समस्या से बचने के लिए ऑल-इन-वन फेच (या वैकल्पिक प्रॉक्सी का उपयोग)
         fetch(apiUrl)
             .then(response => {
-                if (!response.ok) throw new Error("API से डेटा प्राप्त करने में विफल");
+                if (!response.ok) {
+                    return response.text().then(errText => {
+                        throw new Error(`서버 एरर (${response.status}): ${errText}`);
+                    });
+                }
                 return response.json();
             })
             .then(data => {
-                // डेटा मिलने पर यहाँ स्क्रीन पर दिखाएं
-                const panchang = data.data; // प्रोकेराला के स्ट्रक्चर के अनुसार
+                const panchang = data.data;
+                
+                // सुरक्षित तरीके से डेटा निकालना ताकि एरर न आए
+                const tithiName = panchang && panchang.tithi && panchang.tithi[0] ? panchang.tithi[0].name : 'उपलब्ध नहीं';
+                const nakshatraName = panchang && panchang.nakshatra && panchang.nakshatra[0] ? panchang.nakshatra[0].name : 'उपलब्ध नहीं';
+                const sunriseTime = panchang && panchang.sunrise ? panchang.sunrise : 'एन/ए';
+                const sunsetTime = panchang && panchang.sunset ? panchang.sunset : 'एन/ए';
+
                 container.innerHTML = `
-                    <div style="font-family: sans-serif; color: #333; padding: 10px;">
-                        <h2 style="color: #b30000; text-align: center;">📅 पंचांग (${selectedDateStr})</h2>
+                    <div style="font-family: sans-serif; color: #333; padding: 15px; background: #fff; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-top: 15px; border: 2px solid #ffb300;">
+                        <h2 style="color: #b30000; text-align: center; margin-top: 0;">📅 पंचांग (${selectedDate})</h2>
                         <hr style="border: 0; border-top: 1px solid #ccc; margin-bottom: 15px;">
                         
-                        <p><strong>तिथि:</strong> ${panchang.tithi[0].name || 'उपलब्ध नहीं'}</p>
-                        <p><strong>नक्षत्र:</strong> ${panchang.nakshatra[0].name || 'उपलब्ध नहीं'}</p>
+                        <p style="margin: 8px 0;"><strong>तिथि:</strong> ${tithiName}</p>
+                        <p style="margin: 8px 0;"><strong>नक्षत्र:</strong> ${nakshatraName}</p>
                         
-                        <h3 style="color: #6a11cb; margin-top: 20px;">☀️ सूर्योदय और सूर्यास्त</h3>
-                        <p><strong>सूर्योदय:</strong> ${panchang.sunrise || 'एन/ए'}</p>
-                        <p><strong>सूर्यास्त:</strong> ${panchang.sunset || 'एन/ए'}</p>
+                        <h3 style="color: #6a11cb; margin-top: 15px; font-size: 16px;">☀️ सूर्योदय और सूर्यास्त</h3>
+                        <p style="margin: 5px 0;"><strong>सूर्योदय:</strong> ${sunriseTime}</p>
+                        <p style="margin: 5px 0;"><strong>सूर्यास्त:</strong> ${sunsetTime}</p>
                     </div>
                 `;
             })
             .catch(error => {
+                console.error("API Error:", error);
                 container.innerHTML = `
-                    <div style="text-align: center; padding: 40px;">
-                        <h3 style="color: #e74c3c;">डेटा लोड करने में त्रुटि</h3>
-                        <p style="color: #555;">कृपया अपनी इंटरनेट कनेक्शन या API क्रेडेंशियल्स की जाँच करें।</p>
+                    <div style="text-align: center; padding: 20px; background: #fff3f3; border-radius: 10px; border: 1px solid #ffcdd2; margin-top: 15px;">
+                        <h3 style="color: #e74c3c; margin-top: 0;">डेटा लोड करने में त्रुटि</h3>
+                        <p style="color: #555; font-size: 13px;">ब्रॉउज़र सुरक्षा (CORS) या API की वजह से डेटा लोड नहीं हो सका। कृपया सुनिश्चित करें कि आप लाइव GitHub लिंक से देख रहे हैं।</p>
                     </div>`;
             });
     }
- </script>   
-
+</script>
+    
 </body>
 </html>
