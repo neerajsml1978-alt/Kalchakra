@@ -646,7 +646,7 @@ function closeVideo() {
         fetchPanchangByDate(selectedDate);
     }
 
-    // पंचांग डेटा फेच करने का संशोधित और सुरक्षित फंक्शन
+    // यह फंक्शन प्रॉक्सी के साथ पंचांग डेटा फेच करेगा
     function fetchPanchangByDate(selectedDate) {
         const container = document.getElementById('script-container') || document.body;
         if (!selectedDate) return;
@@ -656,23 +656,22 @@ function closeVideo() {
         const clientId = '6a813a7c-c5e4-465f-a533-c95daee4dfb6';
         const clientSecret = 'oUoyvCLzB45mzIuNZTbEw8aMHn16MCpHUsRsp75O';
         
-        // Prokerala API का एंडपॉइंट
-        const apiUrl = `https://api.prokerala.com/v2/astrology/panchang?client_id=${clientId}&client_secret=${clientSecret}&ayanamsa=1&coordinates=28.6139,77.2090&datetime=${selectedDate}T00:00:00Z&la=hi`;
+        // CORS समस्या से बचने के लिए प्रॉक्सी का उपयोग
+        const corsProxy = "https://api.allorigins.win/raw?url=";
+        const targetUrl = encodeURIComponent(`https://api.prokerala.com/v2/astrology/panchang?client_id=${clientId}&client_secret=${clientSecret}&ayanamsa=1&coordinates=28.6139,77.2090&datetime=${selectedDate}T00:00:00Z&la=hi`);
 
-        // CORS समस्या से बचने के लिए ऑल-इन-वन फेच (या वैकल्पिक प्रॉक्सी का उपयोग)
+        const apiUrl = corsProxy + targetUrl;
+
         fetch(apiUrl)
             .then(response => {
                 if (!response.ok) {
-                    return response.text().then(errText => {
-                        throw new Error(`서버 एरर (${response.status}): ${errText}`);
-                    });
+                    throw new Error("API से डेटा प्राप्त करने में विफल");
                 }
                 return response.json();
             })
             .then(data => {
                 const panchang = data.data;
                 
-                // सुरक्षित तरीके से डेटा निकालना ताकि एरर न आए
                 const tithiName = panchang && panchang.tithi && panchang.tithi[0] ? panchang.tithi[0].name : 'उपलब्ध नहीं';
                 const nakshatraName = panchang && panchang.nakshatra && panchang.nakshatra[0] ? panchang.nakshatra[0].name : 'उपलब्ध नहीं';
                 const sunriseTime = panchang && panchang.sunrise ? panchang.sunrise : 'एन/ए';
@@ -693,15 +692,15 @@ function closeVideo() {
                 `;
             })
             .catch(error => {
-                console.error("API Error:", error);
                 container.innerHTML = `
                     <div style="text-align: center; padding: 20px; background: #fff3f3; border-radius: 10px; border: 1px solid #ffcdd2; margin-top: 15px;">
                         <h3 style="color: #e74c3c; margin-top: 0;">डेटा लोड करने में त्रुटि</h3>
-                        <p style="color: #555; font-size: 13px;">ब्रॉउज़र सुरक्षा (CORS) या API की वजह से डेटा लोड नहीं हो सका। कृपया सुनिश्चित करें कि आप लाइव GitHub लिंक से देख रहे हैं।</p>
+                        <p style="color: #555; font-size: 13px;">कृपया अपने इंटरनेट कनेक्शन या API क्रेडेंशियल्स की जाँच करें।</p>
                     </div>`;
             });
     }
-</script>
+                    </script>
+    
     
 </body>
 </html>
