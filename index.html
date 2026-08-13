@@ -286,9 +286,9 @@ font-size: 14px;
 <button onclick="startMagicTrace()">कालचक्र ग्रिड का लाइव जादू देखें</button>
 </div>
 <div id="finalResult"></div>
-
+<!-- यह वह जगह है जहाँ API का पंचांग रिजल्ट दिखेगा -->
+<div id="script-container"></div>
 <div id="video-container" style="margin-top: 0px;"></div>
-
 <!-- चार्ट १ का कार्ड -->
 <div class="chart-card" id="card1">
  <h3>चरण १: वर्ष कोड तालिका (Year Code Table)</h3>
@@ -611,11 +611,6 @@ function sharePage() {
 </script>
 <script src="menu-script.js"></script>
 <script>
-// 1. पेज खुलते ही वीडियो लोड करने के लिए (बिना मेनू को रोके)
-window.addEventListener('DOMContentLoaded', (event) => {
-    playVideo('navgrah-mantra.mp4');
-});
-
 // 2. वीडियो प्ले करने वाला फंक्शन
     function playVideo(videoFile) {
     var container = document.getElementById("video-container");
