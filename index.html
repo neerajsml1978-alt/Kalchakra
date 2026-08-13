@@ -644,5 +644,60 @@ function closeVideo() {
     }
 }
 </script>    
+    <script>
+    // तारीख चुनने पर यह फंक्शन सीधे API को कॉल कर देगा (चाहे कोई भी तारीख हो)
+    function redirectToPanchang(selectedDate) {
+        if (!selectedDate) return;
+
+        // अब हम चेक नहीं करेंगे कि तारीख आज की है या नहीं, 
+        // बल्कि हर तारीख के लिए सीधा API फंक्शन चला देंगे।
+        fetchPanchangByDate(selectedDate);
+    }
+
+    // यह फंक्शन किसी भी चुनी हुई तारीख के लिए API से डेटा लाएगा
+    function fetchPanchangByDate(selectedDate) {
+        const container = document.getElementById('script-container') || document.body;
+
+        container.innerHTML = `<p style='text-align: center; color: #2575fc; font-weight: bold; margin-top: 50px;'>⏳ API से ${selectedDate} का पंचांग लोड हो रहा है...</p>`;
+
+        // यहाँ अपनी असली API Key और URL डालें
+        const apiKey = 'YOUR_API_KEY_HERE';
+        const apiUrl = `https://api.example.com/v1/panchang?date=${selectedDate}&api_key=${apiKey}`;
+
+        fetch(apiUrl)
+            .then(response => {
+                if (!response.ok) throw new Error("API से डेटा प्राप्त करने में विफल");
+                return response.json();
+            })
+            .then(data => {
+                // API से मिले डेटा को स्क्रीन पर दिखाने के लिए HTML तैयार करें
+                container.innerHTML = `
+                    <div style="font-family: sans-serif; color: #333; padding: 20px; max-width: 600px; margin: 20px auto; background: #fff; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                        <h2 style="color: #b30000; text-align: center;">📅 पंचांग (${selectedDate})</h2>
+                        <hr style="border: 0; border-top: 1px solid #ccc; margin-bottom: 15px;">
+                        
+                        <p><strong>तिथि:</strong> ${data.tithi || 'उपलब्ध नहीं'}</p>
+                        <p><strong>नक्षत्र:</strong> ${data.nakshatra || 'उपलब्ध नहीं'}</p>
+                        <p><strong>योग:</strong> ${data.yoga || 'उपलब्ध नहीं'}</p>
+                        <p><strong>करण:</strong> ${data.karana || 'उपलब्ध नहीं'}</p>
+                        
+                        <h3 style="color: #6a11cb; margin-top: 20px;">☀️ सूर्योदय और सूर्यास्त</h3>
+                        <p><strong>सूर्योदय:</strong> ${data.sunrise || 'एन/ए'}</p>
+                        <p><strong>सूर्यास्त:</strong> ${data.sunset || 'एन/ए'}</p>
+                        
+                        <h3 style="color: #b30000; margin-top: 20px;">⚠️ राहुकाल</h3>
+                        <p><strong>समय:</strong> ${data.rahukaal || 'एन/ए'}</p>
+                    </div>
+                `;
+            })
+            .catch(error => {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 40px;">
+                        <h3 style="color: #e74c3c;">डेटा लोड करने में त्रुटि</h3>
+                        <p style="color: #555;">तारीख ${selectedDate} के लिए डेटा नहीं मिल पाया। कृपया अपनी API Key या इंटरनेट कनेक्शन जाँचें।</p>
+                    </div>`;
+            });
+    }
+    </script>
 </body>
 </html>
